@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/ee_neptun.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTanuloEredmenyTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TanuloEredmenyListForm">
+                <p:panel header="#{bundle.ListTanuloEredmenyTitle}">
+                    <p:dataTable id="datalist" value="#{tanuloEredmenyController.items}" var="item"
+                                 selectionMode="single" selection="#{tanuloEredmenyController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idHalNeptun}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTanuloEredmenyTitle_idHalNeptun}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idHalNeptun}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTanuloEredmenyTitle_halTargy}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.halTargy}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTanuloEredmenyTitle_eredmeny}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.eredmeny}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tanuloEredmenyController.prepareCreate}" update=":TanuloEredmenyCreateForm" oncomplete="PF('TanuloEredmenyCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TanuloEredmenyViewForm" oncomplete="PF('TanuloEredmenyViewDialog').show()" disabled="#{empty tanuloEredmenyController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TanuloEredmenyEditForm" oncomplete="PF('TanuloEredmenyEditDialog').show()" disabled="#{empty tanuloEredmenyController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tanuloEredmenyController.destroy}" update=":growl,datalist" disabled="#{empty tanuloEredmenyController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

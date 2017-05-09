@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TanuloEredmenyEditDlg" widgetVar="TanuloEredmenyEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTanuloEredmenyTitle}">
+            <h:form id="TanuloEredmenyEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tanuloEredmenyController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTanuloEredmenyLabel_idHalNeptun}" for="idHalNeptun" />
+                        <p:inputText id="idHalNeptun" value="#{tanuloEredmenyController.selected.idHalNeptun}" title="#{bundle.EditTanuloEredmenyTitle_idHalNeptun}" required="true" requiredMessage="#{bundle.EditTanuloEredmenyRequiredMessage_idHalNeptun}"/>
+                        <p:outputLabel value="#{bundle.EditTanuloEredmenyLabel_halTargy}" for="halTargy" />
+                        <p:inputText id="halTargy" value="#{tanuloEredmenyController.selected.halTargy}" title="#{bundle.EditTanuloEredmenyTitle_halTargy}" required="true" requiredMessage="#{bundle.EditTanuloEredmenyRequiredMessage_halTargy}"/>
+                        <p:outputLabel value="#{bundle.EditTanuloEredmenyLabel_eredmeny}" for="eredmeny" />
+                        <p:inputText id="eredmeny" value="#{tanuloEredmenyController.selected.eredmeny}" title="#{bundle.EditTanuloEredmenyTitle_eredmeny}" required="true" requiredMessage="#{bundle.EditTanuloEredmenyRequiredMessage_eredmeny}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tanuloEredmenyController.update}" value="#{bundle.Save}" update="display,:TanuloEredmenyListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TanuloEredmenyEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TanuloEredmenyEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

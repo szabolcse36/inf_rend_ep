@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+ 
+<h:head>
+</h:head>
+ <h:body>
+     
+<h1>Informatikai rendszerek építése 8) feladat (neptun)</h1>
+ 
+            
+<h:form>            
+    <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login">
+     
+        
+        <img src="img/login.png" width="256" height="256"
+   style="float: left" alt="Login" title="Belépés"/>
+        
+    </h:outputLink>
+ 
+    <p:growl id="growl" sticky="true" showDetail="false" life="3000" />
+ 
+    <p:dialog header="Bejelentkezés" widgetVar="dlg" resizable="false">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="username" value="Felhasználónév:" />
+            <p:inputText id="username" value="#{userLoginViewController.username}" required="true" label="username" />
+ 
+            <h:outputLabel for="password" value="Jelszó:" />
+            <p:password id="password" value="#{userLoginViewController.password}" required="true" label="password" />
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Belépés" update="growl" actionListener="#{userLoginViewController.login}"
+                                 oncomplete="handleLoginRequest(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+    </p:dialog>
+</h:form>
+
+     <p:contentFlow value="#{imageViewController.images}" var="image">
+    <p:graphicImage url="/img/show/#{image}" styleClass="content" />
+    <div class="caption">#{image}</div>
+</p:contentFlow>
+
+<h:form>
+         
+    <h3>Pontos idő</h3>
+    <p:clock pattern="yyyy.MM.dd HH:mm:ss" mode="server" />
+</h:form>
+                    
+
+ 
+<script type="text/javascript">
+    function handleLoginRequest(xhr, status, args) {
+        if(args.validationFailed || !args.loggedIn) {
+            PF('dlg').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dlg').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
+ 
+ </h:body>
+</html>

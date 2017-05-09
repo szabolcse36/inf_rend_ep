@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HallgatokCreateDlg" widgetVar="HallgatokCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateHallgatokTitle}">
+            <h:form id="HallgatokCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{hallgatokController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateHallgatokLabel_idHalNeptun}" for="idHalNeptun" />
+                        <p:inputText id="idHalNeptun" value="#{hallgatokController.selected.idHalNeptun}" title="#{bundle.CreateHallgatokTitle_idHalNeptun}" required="true" requiredMessage="#{bundle.CreateHallgatokRequiredMessage_idHalNeptun}"/>
+                        <p:outputLabel value="#{bundle.CreateHallgatokLabel_nev}" for="nev" />
+                        <p:inputText id="nev" value="#{hallgatokController.selected.nev}" title="#{bundle.CreateHallgatokTitle_nev}" required="true" requiredMessage="#{bundle.CreateHallgatokRequiredMessage_nev}"/>
+                        <p:outputLabel value="#{bundle.CreateHallgatokLabel_tankor}" for="tankor" />
+                        <p:inputText id="tankor" value="#{hallgatokController.selected.tankor}" title="#{bundle.CreateHallgatokTitle_tankor}" required="true" requiredMessage="#{bundle.CreateHallgatokRequiredMessage_tankor}"/>
+                        <p:outputLabel value="#{bundle.CreateHallgatokLabel_halTargy}" for="halTargy" />
+                        <p:inputText id="halTargy" value="#{hallgatokController.selected.halTargy}" title="#{bundle.CreateHallgatokTitle_halTargy}" required="true" requiredMessage="#{bundle.CreateHallgatokRequiredMessage_halTargy}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{hallgatokController.create}" value="#{bundle.Save}" update="display,:HallgatokListForm:datalist,:growl" oncomplete="handleSubmit(args,'HallgatokCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="HallgatokCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OktatokTargyaiCreateDlg" widgetVar="OktatokTargyaiCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateOktatokTargyaiTitle}">
+            <h:form id="OktatokTargyaiCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{oktatokTargyaiController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateOktatokTargyaiLabel_idOktNeptun}" for="idOktNeptun" />
+                        <p:inputText id="idOktNeptun" value="#{oktatokTargyaiController.selected.idOktNeptun}" title="#{bundle.CreateOktatokTargyaiTitle_idOktNeptun}" required="true" requiredMessage="#{bundle.CreateOktatokTargyaiRequiredMessage_idOktNeptun}"/>
+                        <p:outputLabel value="#{bundle.CreateOktatokTargyaiLabel_oktTargy}" for="oktTargy" />
+                        <p:inputText id="oktTargy" value="#{oktatokTargyaiController.selected.oktTargy}" title="#{bundle.CreateOktatokTargyaiTitle_oktTargy}" required="true" requiredMessage="#{bundle.CreateOktatokTargyaiRequiredMessage_oktTargy}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{oktatokTargyaiController.create}" value="#{bundle.Save}" update="display,:OktatokTargyaiListForm:datalist,:growl" oncomplete="handleSubmit(args,'OktatokTargyaiCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OktatokTargyaiCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

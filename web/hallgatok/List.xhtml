@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/ee_neptun.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListHallgatokTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="HallgatokListForm">
+                <p:panel header="#{bundle.ListHallgatokTitle}">
+                    <p:dataTable id="datalist" value="#{hallgatokController.items}" var="item"
+                                 selectionMode="single" selection="#{hallgatokController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idHalNeptun}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHallgatokTitle_idHalNeptun}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idHalNeptun}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHallgatokTitle_nev}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nev}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHallgatokTitle_tankor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tankor}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHallgatokTitle_halTargy}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.halTargy}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{hallgatokController.prepareCreate}" update=":HallgatokCreateForm" oncomplete="PF('HallgatokCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":HallgatokViewForm" oncomplete="PF('HallgatokViewDialog').show()" disabled="#{empty hallgatokController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":HallgatokEditForm" oncomplete="PF('HallgatokEditDialog').show()" disabled="#{empty hallgatokController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{hallgatokController.destroy}" update=":growl,datalist" disabled="#{empty hallgatokController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

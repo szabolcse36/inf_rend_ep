@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TanuloEredmenyViewDlg" widgetVar="TanuloEredmenyViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTanuloEredmenyTitle}">
+            <h:form id="TanuloEredmenyViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tanuloEredmenyController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTanuloEredmenyLabel_idHalNeptun}"/>
+                        <h:outputText value="#{tanuloEredmenyController.selected.idHalNeptun}" title="#{bundle.ViewTanuloEredmenyTitle_idHalNeptun}"/>
+                        <h:outputText value="#{bundle.ViewTanuloEredmenyLabel_halTargy}"/>
+                        <h:outputText value="#{tanuloEredmenyController.selected.halTargy}" title="#{bundle.ViewTanuloEredmenyTitle_halTargy}"/>
+                        <h:outputText value="#{bundle.ViewTanuloEredmenyLabel_eredmeny}"/>
+                        <h:outputText value="#{tanuloEredmenyController.selected.eredmeny}" title="#{bundle.ViewTanuloEredmenyTitle_eredmeny}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TanuloEredmenyViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
